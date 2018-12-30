@@ -50,12 +50,7 @@ platform :ios do
     commit_version_bump(message: tagName)
     push_to_git_remote
 
-    create tag
-    add_git_tag(
-      tag: tagName
-    )
 
-    push_git_tags
   end
 
 end
