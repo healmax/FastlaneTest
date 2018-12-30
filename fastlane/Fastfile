@@ -1,0 +1,61 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+
+
+  lane :dev_cert do |options|
+    # Download development certifications and provision profiles
+    # adm: Optional. Enable write permission. Default is fasle.
+
+    isAdminMode = options[:adm]
+
+    match(
+      git_url: "git@github.com:healmax/certificates_ios.git",
+      type: "development", 
+      readonly: !isAdminMode, 
+      force_for_new_devices: isAdminMode
+    )
+  end
+
+  lane :create_tag do |options|
+    # Version bump and create tag 
+    # bt: Optional. Bump type. "major", "minor", "patch".
+    # rv: Optional. Revision hash.
+
+    ensure_git_status_clean
+
+    increment_build_number
+
+    tagName = "v" + get_version_number(target: "FastlaneTest") + "/" + get_build_number
+
+    commit_version_bump(message: tagName)
+    push_to_git_remote
+
+    # create tag
+    add_git_tag(
+        tag: tagName
+      )
+
+    push_git_tags
+  end
+
+end
