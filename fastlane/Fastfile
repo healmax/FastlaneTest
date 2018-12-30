@@ -47,15 +47,15 @@ platform :ios do
 
     tagName = "v" + get_version_number(target: "FastlaneTest") + "/" + get_build_number
 
-    #commit_version_bump(message: tagName)
+    commit_version_bump(message: tagName)
     #push_to_git_remote
 
     # create tag
-    add_git_tag(
-        tag: tagName
-      )
+    # add_git_tag(
+    #     tag: tagName
+    #   )
 
-    push_git_tags
+    # push_git_tags
   end
 
 end
