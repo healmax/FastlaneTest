@@ -58,4 +58,20 @@ platform :ios do
     push_git_tags
   end
 
+  lane :deliver_to_testflight do
+
+    # Sync certificates
+    prod_cer
+
+    # build your iOS app
+    gym(
+      scheme: "FastlaneTest",
+      export_method: "app-store"
+    )
+
+    # upload to Testflight
+    testflight(skip_waiting_for_build_processing: true)
+
+  end
+
 end
