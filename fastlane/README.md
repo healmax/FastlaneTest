@@ -31,6 +31,11 @@ fastlane ios dev_cert
 fastlane ios create_tag
 ```
 
+### ios deliver_to_testflight
+```
+fastlane ios deliver_to_testflight
+```
+
 
 ----
 

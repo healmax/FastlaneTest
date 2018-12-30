@@ -36,6 +36,16 @@ platform :ios do
     )
   end
 
+  lane :prod_cert do
+    # Download production certifications
+
+    match(
+      git_url: "git@github.com:healmax/certificates_ios.git",
+      type: "appstore", 
+      readonly: true, 
+    )
+  end
+
   lane :create_tag do |options|
     # Version bump and create tag 
     # bt: Optional. Bump type. "major", "minor", "patch".
